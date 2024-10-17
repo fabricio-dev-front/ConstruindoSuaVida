@@ -222,33 +222,33 @@ int compararProdutos(const void *a, const void *b){
     return ((Produto *)a)->codigo - ((Produto *)b)->codigo;
 }
 
-void ordenarProdutos(){
-    FILE *file = fopen("produtos.txt", "r");
-    if(file == NULL){
-        printf("Não foi possível abrir o arquivo produtos.txt\n");
+void ordenarProdutos(struct ProdutoNode **head) {
+    if (*head == NULL || (*head)->next == NULL) {
         return;
     }
 
-    Produto produtos[1000];
-    int totalProdutos = 0;
+    struct ProdutoNode *sorted = NULL;
+    struct ProdutoNode *current = *head;
 
-    while(fscanf(file, "%d %s %f\n", &produtos[totalProdutos].codigo, produtos[totalProdutos].nome, &produtos[totalProdutos].preco) != EOF){
-        totalProdutos++;
+    while (current != NULL) {
+        struct ProdutoNode *next = current->next;
+
+        if (sorted == NULL || sorted->data.codigo >= current->data.codigo) {
+            current->next = sorted;
+            sorted = current;
+        } else {
+            struct ProdutoNode *temp = sorted;
+            while (temp->next != NULL && temp->next->data.codigo < current->data.codigo) {
+                temp = temp->next;
+            }
+            current->next = temp->next;
+            temp->next = current;
+        }
+        current = next;
     }
 
-    fclose(file);
-
-    qsort(produtos, totalProdutos, sizeof(Produto), compararProdutos);
-
-    file = fopen("produtos.txt", "w");
-    if(file == NULL){
-        printf("Não foi possível abrir o arquivo produtos.txt\n");
-        return;
-    }
-
-    for(int i = 0; i < totalProdutos; i++){
-        fprintf(file, "%d %s %f\n", produtos[i].codigo, produtos[i].nome, produtos[i].preco);
-    }
-
-    fclose(file);
+    *head = sorted;
+    
+    salvarProdutos(*head);
+    printf("Produtos ordenados e salvos no arquivo com sucesso!\n");
 }

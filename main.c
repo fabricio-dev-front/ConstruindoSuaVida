@@ -3,7 +3,8 @@
 
 #define MAX_USUARIOS 10
 
-int main(){
+int main()
+{
     struct UsuarioNode *usuarios = NULL;
     int totalUsuarios = 0;
     bool logado = false;
@@ -12,7 +13,8 @@ int main(){
     int totalProdutos = 0;
 
     int opcao;
-    do{
+    do
+    {
         printf("\n=== MENU DE USUARIO ===\n");
         printf("1. Cadastrar usuario\n");
         printf("2. Fazer login\n");
@@ -20,20 +22,22 @@ int main(){
         printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
 
-        switch(opcao){
-            case 1:
-                cadastrarUsuario(&usuarios, &totalUsuarios);
-                break;
-            case 2:
-                fazerLogin(usuarios, &logado);
-                break;
-            case 3:
-                printf("Saindo...\n");
-                return 0;
+        switch (opcao)
+        {
+        case 1:
+            cadastrarUsuario(&usuarios, &totalUsuarios);
+            break;
+        case 2:
+            fazerLogin(usuarios, &logado);
+            break;
+        case 3:
+            printf("Saindo...\n");
+            return 0;
         }
-    } while(!logado);
+    } while (!logado);
 
-    do{
+    do
+    {
         printf("\n=== MENU DE PRODUTOS ===\n");
         printf("1. Exibir tabela de produtos\n");
         printf("2. Adicionar produto\n");
@@ -48,35 +52,36 @@ int main(){
         printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
 
-        switch(opcao){
-            case 1:
-                exibirTabelaDeProdutos(produtos);
-                break;
-            case 2:
-                adicionarProduto(&produtos, &totalProdutos);
-                break;
-            case 3:
-                removerProduto(&produtos, &totalProdutos);
-                break;
-            case 4:
-                buscarProdutoPorCodigo(produtos);
-                break;
-            case 5:
-                salvarProdutos(produtos);
-                printf("Produtos salvos com sucesso!\n");
-                break; 
-            case 6:
-                ordenarProdutos(&produtos);
-                printf("Produtos ordenados com sucesso!\n");
-                break;    
-            case 7:
-                printf("saindo...\n");
-                logado = 0;
-                break;
-            default:
-                printf("Opcao invalida. Tente novamente.\n");    
+        switch (opcao)
+        {
+        case 1:
+            exibirTabelaDeProdutos(produtos);
+            break;
+        case 2:
+            adicionarProduto(&produtos, &totalProdutos);
+            break;
+        case 3:
+            removerProduto(&produtos, &totalProdutos);
+            break;
+        case 4:
+            buscarProdutoPorCodigo(produtos);
+            break;
+        case 5:
+            salvarProdutos(produtos);
+            printf("Produtos salvos com sucesso!\n");
+            break;
+        case 6:
+            ordenarProdutos(&produtos);
+            printf("Produtos ordenados com sucesso!\n");
+            break;
+        case 7:
+            printf("saindo...\n");
+            logado = 0;
+            break;
+        default:
+            printf("Opcao invalida. Tente novamente.\n");
         }
-    } while(logado);
+    } while (logado);
 
     return 0;
 }
