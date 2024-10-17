@@ -72,7 +72,6 @@ int main()
             break;
         case 6:
             ordenarProdutos(&produtos);
-            printf("Produtos ordenados com sucesso!\n");
             break;
         case 7:
             printf("saindo...\n");
